@@ -37,7 +37,7 @@ reference_time_uuid = [0x1d, 0x4f, 0xc4, 0xeb, 0xf5,
 proceed = False
 
 def handle_timeout(sender, args):
-	print("Whoops! BLED112 timed out. :-(\n")
+	print("Whoops! BG22 timed out. :-(\n")
 
 def addr_to_string(addr):
 	return "{:02X}:{:02X}:{:02X}:{:02X}:{:02X}:{:02X}".format(*addr[::-1])
@@ -46,7 +46,7 @@ def hex_to_string(hex):
 	return ":".join("{:02x}".format(p) for p in hex[::-1])
 
 def handle_get_info(sender, args):
-	print("BlueGiga BLED112, BGAPI v{}.{}.{} (Build {})\n".format( 
+	print("BlueGiga BG22, BGAPI v{}.{}.{} (Build {})\n".format( 
 		args['major'], 
 		args['minor'], 
 		args['patch'], 

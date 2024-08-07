@@ -5,7 +5,7 @@
 /** @file main.cpp
 @brief Main for the BlueSync mbed application. */
 
-Serial ble112(p9, p10); ///< Serial connection for communicating with the BLE112.
+Serial bg22(p9, p10); ///< Serial connection for communicating with the BLE112.
 TimerCapture * capPin; ///< Capture pin, wired to GPIO pin on BLE112.
 TimerCapture * evtPin; 
 DigitalOut bleSlaveLed(LED1);
@@ -38,7 +38,7 @@ void on_adv_recv() {
     bleAdvRecv = 1;
     uint8_t hw_addr[6];
     for (int i = 5; i >=0; i--) {
-        hw_addr[i] = ble112.getc();
+        hw_addr[i] = bg22.getc();
     }
     
     printf("***************\r\n");
@@ -65,9 +65,9 @@ void on_slave_mode() {
     printf("Sending timestamp %d (%08x)\r\n", bitArray.integer, bitArray.integer);
     uint8_t event = (uint8_t) EventCode::SET_TIMESTAMP;
     printf("Sending event: %x\r\n", event);
-    ble112.putc(0x05);   
+    bg22.putc(0x05);   
     for (int i = 0; i < 4; i++) {
-        ble112.putc(bitArray.byte[i]);
+        bg22.putc(bitArray.byte[i]);
     }
 }
 
@@ -78,7 +78,7 @@ void on_offset_recv() {
     printf("Trying to get offset\r\n");
     for (int i = 0; i < 4; i++) {
         printf("Reading byte[%d]\r\n", i);
-        bitArray.byte[i] = ble112.getc();
+        bitArray.byte[i] = bg22.getc();
     }
     printf("Got offset %d\r\n", bitArray.signed_integer);
     
@@ -90,14 +90,14 @@ void on_interrupt_recv() {
     intByteArray bitArray;
     bitArray.integer = evtPin->getTime();
     printf("Sending sensor time %d (%08x)\r\n", bitArray.integer, bitArray.integer);
-    ble112.putc(event);
+    bg22.putc(event);
     for (int i = 0; i < 4; i++) {
-        ble112.putc(bitArray.byte[i]);
+        bg22.putc(bitArray.byte[i]);
     }
 }
 
 void on_serial_rcv() {
-    uint8_t command = ble112.getc();
+    uint8_t command = bg22.getc();
     printf("Command: %x\r\n", command);
     switch (command) {
     case EventCode::ADV_RECV:
@@ -138,13 +138,13 @@ int main() {
     capPin = new TimerCapture(p30);
     evtPin = new TimerCapture(p29);
     evtWatchPin.rise(&on_interrupt_recv);
-    ble112.baud(9600);
-    ble112.set_flow_control(SerialBase::RTSCTS, p7, p8);
-    ble112.attach(&on_serial_rcv);
+    bg22.baud(9600);
+    bg22.set_flow_control(SerialBase::RTSCTS, p7, p8);
+    bg22.attach(&on_serial_rcv);
     uint8_t command = (uint8_t) EventCode::GET_STATE;
     printf("Sending command %x\r\n", command);
-    ble112.putc(command);
+    bg22.putc(command);
     for (int i = 0; i < 4; i++) {
-        ble112.putc(0x00);
+        bg22.putc(0x00);
     }
 }

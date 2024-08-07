@@ -4,5 +4,5 @@
     <hardware in="hardware.xml" />    
     <script in="uart_echo.bgs" />
     <image out="out.hex" />    
-    <device type="ble113" />
+    <device type="bg22" />
 </project>

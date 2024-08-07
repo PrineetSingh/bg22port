@@ -101,23 +101,23 @@ def main():
             return "".join(result[:-1])
 
     # process script arguments
-    p = MyParser(description='Bluetooth Smart Scanner script for Bluegiga BLED112 v2013-03-30', epilog=
+    p = MyParser(description='Bluetooth Smart Scanner script for Silicon Labs BG22 v2013-03-30', epilog=
 """Examples:
 
-    bled112_scanner.py
+    bg22_scanner.py
 
 \tDefault options, passive scan, display all devices
 
-    bled112_scanner.py -p /dev/ttyUSB0 -d sd
+    bg22_scanner.py -p /dev/ttyUSB0 -d sd
 
 \tUse ttyUSB0, display only sender MAC address and ad data payload
 
-    bled112_scanner.py -u 1809 -u 180D
+    bg22_scanner.py -u 1809 -u 180D
 
 \tDisplay only devices advertising Health Thermometer service (0x1809)
 \tor the Heart Rate service (0x180D)
 
-    bled112_scanner.py -m 00:07:80 -m 08:57:82:bb:27:37
+    bg22_scanner.py -m 00:07:80 -m 08:57:82:bb:27:37
 
 \tDisplay only devices with a Bluetooth address (MAC) starting with the
 \tBluegiga OUI (00:07:80), or exactly matching 08:57:82:bb:27:37
@@ -242,7 +242,7 @@ Sample Output Explanation:
     # display scan parameter summary, if not in quiet mode
     if not(options.quiet):
         print "================================================================"
-        print "BLED112 Scanner for Python v%s" % __version__
+        print "BG22 Scanner for Python v%s" % __version__
         print "================================================================"
         #p.set_defaults(port="/dev/ttyACM0", baud=115200, interval=0xC8, window=0xC8, display="trpsabd", uuid=[], mac=[], rssi=0, active=False, quiet=False, friendly=False)
         print "Serial port:\t%s" % options.port
