@@ -157,3 +157,5 @@ Once all the connections are made, switch on the power, and invoke `bluesync.py`
 * After a second, LED1 should be lit.
 
 The bluesync.py script will write to an output file as it calculates offsets and error.
+#   b g 2 2 p o r t  
+ 
