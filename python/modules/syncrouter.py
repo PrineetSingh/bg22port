@@ -201,15 +201,3 @@ class SyncRouter():
 
         self.bglib.ble_evt_connection_disconnected -= self.on_disconnection_event
 
-
-
-
-
-
-
-
-
-
-
-
-
